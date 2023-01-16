@@ -44,6 +44,7 @@ set t_Co=256             " 开启256色支持
 set cmdheight=1          " 设置命令行的高度
 set showmatch            " 括号匹配,当输入）、}时，光标会短暂地回到相匹配地左括号
 " 代码提示框背景颜色
+
 hi Pmenu ctermfg=7 ctermbg=236
 hi PmenuSel ctermfg=white ctermbg=32
 hi CocFloating ctermfg=black ctermbg=240
