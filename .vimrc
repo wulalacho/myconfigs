@@ -14,6 +14,8 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 " 代码补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" c++语法高亮支持
+Plug 'octol/vim-cpp-enhanced-highlight'   
 call plug#end()
 
 " #####################
@@ -100,7 +102,7 @@ map <leader><leader> :NERDTreeToggle<CR>  " 快速打开NERDTree 视窗
 " 设置树的显示图标
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
-
+let NERDTreeShowHidden=1
 
 
 " json语法支持
@@ -193,10 +195,10 @@ func SetComment()
     call setline(1,"/*================================================================")
     call append(line("."),   "*   Copyright (C) ".strftime("%Y")." Goodfanqie. All rights reserved.")
     call append(line(".")+1, "*   ")
-    call append(line(".")+2, "*   文件名称：".expand("%:t"))
-    call append(line(".")+3, "*   创 建 者：Goodfanqie")
-    call append(line(".")+4, "*   创建日期：".strftime("%Y年%m月%d日"))
-    call append(line(".")+5, "*   描    述：")
+    call append(line(".")+2, "*   File   name：".expand("%:t"))
+    call append(line(".")+3, "*   Created  by：Goodfanqie")
+    call append(line(".")+4, "*   Create Date：".strftime("%Y.%m.%d."))
+    call append(line(".")+5, "*   Description：")
     call append(line(".")+6, "*")
     call append(line(".")+7, "================================================================*/")
     call append(line(".")+8, "")
@@ -207,10 +209,10 @@ func SetComment_sh()
     call setline(3, "#================================================================")
     call setline(4, "#   Copyright (C) ".strftime("%Y")." Goodfanqie. All rights reserved.")
     call setline(5, "#   ")
-    call setline(6, "#   文件名称：".expand("%:t"))
-    call setline(7, "#   创 建 者: Goodfanqie")
-    call setline(8, "#   创建日期：".strftime("%Y年%m月%d日"))
-    call setline(9, "#   描    述：")
+    call setline(6, "#   File   name：".expand("%:t"))
+    call setline(7, "#   Created  by: Goodfanqie")
+    call setline(8, "#   Create date：".strftime("%Y年%m月%d日"))
+    call setline(9, "#   Description：")
     call setline(10, "#")
     call setline(11, "#================================================================")
     call setline(12, "")
