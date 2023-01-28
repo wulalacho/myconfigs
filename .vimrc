@@ -15,7 +15,9 @@ Plug 'ryanoasis/vim-devicons'
 " 代码补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " c++语法高亮支持
-Plug 'octol/vim-cpp-enhanced-highlight'   
+"Plug 'octol/vim-cpp-enhanced-highlight'   
+" markdown预览
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 
 " #####################
@@ -37,14 +39,10 @@ set nowrap               " 禁止折行
 set backspace=2          " 使用回车键正常处理indent,eol,start等
 set nocompatible         " 设置不兼容原始vi模式
 filetype on              " 设置开启文件类型侦测
-filetype plugin on       " 设置加载对应文件类型的插件
 filetype plugin indent on
-set noeb                 " 关闭错误的提示
-syntax enable            " 开启语法高亮功能
-syntax on                " 自动语法高亮
-set t_Co=256             " 开启256色支持
-set cmdheight=1          " 设置命令行的高度
 set showmatch            " 括号匹配,当输入）、}时，光标会短暂地回到相匹配地左括号
+syntax on
+syntax enable
 " 代码提示框背景颜色
 
 hi Pmenu ctermfg=7 ctermbg=236
