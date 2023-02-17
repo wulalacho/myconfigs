@@ -12,6 +12,7 @@ set ignorecase
 set smartcase
 set notimeout
 set jumpoptions=stack
+set updatetime=200
 
 " 快捷输入标志位符
 imap <buffer> ( ()<ESC>F(li
@@ -49,6 +50,28 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
               \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   au VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+
+" use tab quickly
+noremap <silent><tab>m :tabnew<cr>
+noremap <silent><tab>e :tabclose<cr>
+noremap <silent><tab>n :tabn<cr>
+noremap <silent><tab>p :tabp<cr>
+noremap <silent><leader>t :tabnew<cr>
+noremap <silent><leader>g :tabclose<cr>
+noremap <silent><leader>1 :tabn 1<cr>
+noremap <silent><leader>2 :tabn 2<cr>
+noremap <silent><leader>3 :tabn 3<cr>
+noremap <silent><leader>4 :tabn 4<cr>
+noremap <silent><leader>5 :tabn 5<cr>
+noremap <silent><leader>6 :tabn 6<cr>
+noremap <silent><leader>7 :tabn 7<cr>
+noremap <silent><leader>8 :tabn 8<cr>
+noremap <silent><leader>9 :tabn 9<cr>
+noremap <silent><leader>0 :tabn 10<cr>
+noremap <silent><s-tab> :tabnext<CR>
+inoremap <silent><s-tab> <ESC>:tabnext<CR>
+
 
 
 
@@ -132,9 +155,22 @@ call plug#begin('~/.config/nvim/plugged')
 " lsp
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" highlight
-  Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+
+" cpp modern highlight
+ Plug 'bfrg/vim-cpp-modern'
 call plug#end()
+
+
+" ==== 907th/vim-auto-save
+let g:auto_save = 0
+augroup cpp
+    au!
+    au FileType cpp let b:auto_save = 1
+    au FileType c let b:auto_save = 1
+augroup END
+
+
 
 
 " ==== cateduo/vsdark.nvim ====
@@ -230,19 +266,34 @@ nmap <LEADER>qf <Plug>(coc-fix-current)
 
 
 
-" ==== jackguo380/vim-lsp-cxx-highlight ====
 
-hi default link LspCxxHlSymFunction cxxFunction
-hi default link LspCxxHlSymFunctionParameter cxxParameter
-hi default link LspCxxHlSymFileVariableStatic cxxFileVariableStatic
-hi default link LspCxxHlSymStruct cxxStruct
-hi default link LspCxxHlSymStructField cxxStructField
-hi default link LspCxxHlSymFileTypeAlias cxxTypeAlias
-hi default link LspCxxHlSymClassField cxxStructField
-hi default link LspCxxHlSymEnum cxxEnum
-hi default link LspCxxHlSymVariableExtern cxxFileVariableStatic
-hi default link LspCxxHlSymVariable cxxVariable
-hi default link LspCxxHlSymMacro cxxMacro
-hi default link LspCxxHlSymEnumMember cxxEnumMember
-hi default link LspCxxHlSymParameter cxxParameter
-hi default link LspCxxHlSymClass cxxTypeAlias
+" cpp-Enhance-modern
+" Disable function highlighting (affects both C and C++ files)
+let g:cpp_function_highlight = 0
+
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
+
+
+
+let g:clipboard = {
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+
+
