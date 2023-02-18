@@ -2,6 +2,7 @@
 " === Enhance Editor ==
 " =====================
 
+" 基础设置
 set number
 set relativenumber
 set expandtab
@@ -50,28 +51,6 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
               \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   au VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
-
-" use tab quickly
-noremap <silent><tab>m :tabnew<cr>
-noremap <silent><tab>e :tabclose<cr>
-noremap <silent><tab>n :tabn<cr>
-noremap <silent><tab>p :tabp<cr>
-noremap <silent><leader>t :tabnew<cr>
-noremap <silent><leader>g :tabclose<cr>
-noremap <silent><leader>1 :tabn 1<cr>
-noremap <silent><leader>2 :tabn 2<cr>
-noremap <silent><leader>3 :tabn 3<cr>
-noremap <silent><leader>4 :tabn 4<cr>
-noremap <silent><leader>5 :tabn 5<cr>
-noremap <silent><leader>6 :tabn 6<cr>
-noremap <silent><leader>7 :tabn 7<cr>
-noremap <silent><leader>8 :tabn 8<cr>
-noremap <silent><leader>9 :tabn 9<cr>
-noremap <silent><leader>0 :tabn 10<cr>
-noremap <silent><s-tab> :tabnext<CR>
-inoremap <silent><s-tab> <ESC>:tabnext<CR>
-
 
 
 
@@ -167,7 +146,7 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 
-" ==== 907th/vim-auto-save
+" ==== 907th/vim-auto-save ====
 let g:auto_save = 0
 augroup cpp
     au!
@@ -179,19 +158,16 @@ augroup END
 
 
 " ==== cateduo/vsdark.nvim ====
-
 set termguicolors
-" let g:vsdark_style = "dark"
-" colorscheme vsdark
-" colorscheme tokyonight
 colorscheme gruvbox
 
 
-" ==== floaterm =====
+
+" ==== floaterm ====
 map te :FloatermNew<CR>
 
 
-" ==== preservim/nerdtree =====
+" ==== preservim/nerdtree ====
 
 " 快速打开NERDTree 视窗
 map <leader><leader> :NERDTreeToggle<CR>  
@@ -199,8 +175,7 @@ map <leader><leader> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 
-" coc extensions
-"
+" ==== coc extensions ====
 set signcolumn=number
 " <TAB> to select candidate forward or
 " pump completion candidate
@@ -279,7 +254,7 @@ nmap <LEADER>qf <Plug>(coc-fix-current)
 
 
 
-
+" ==== clipboard with os ====
 let g:clipboard = {
                 \   'name': 'WslClipboard',
                 \   'copy': {
