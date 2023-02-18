@@ -147,6 +147,15 @@ endfunc
 call plug#begin('~/.config/nvim/plugged')
 
 " theme
+  Plug 'morhetz/gruvbox'
+
+" floating terminal
+  Plug 'voldikss/vim-floaterm'
+
+" add file icon
+  Plug 'ryanoasis/vim-devicons'
+
+" theme
   Plug 'cateduo/vsdark.nvim'
 
 " file explorer
@@ -155,10 +164,6 @@ call plug#begin('~/.config/nvim/plugged')
 " lsp
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-
-
-" cpp modern highlight
- Plug 'bfrg/vim-cpp-modern'
 call plug#end()
 
 
@@ -176,8 +181,14 @@ augroup END
 " ==== cateduo/vsdark.nvim ====
 
 set termguicolors
-let g:vsdark_style = "dark"
-colorscheme vsdark
+" let g:vsdark_style = "dark"
+" colorscheme vsdark
+" colorscheme tokyonight
+colorscheme gruvbox
+
+
+" ==== floaterm =====
+map te :FloatermNew<CR>
 
 
 " ==== preservim/nerdtree =====
@@ -266,20 +277,6 @@ nmap <LEADER>qf <Plug>(coc-fix-current)
 
 
 
-
-" cpp-Enhance-modern
-" Disable function highlighting (affects both C and C++ files)
-let g:cpp_function_highlight = 0
-
-" Enable highlighting of C++11 attributes
-let g:cpp_attributes_highlight = 1
-
-" Highlight struct/class member variables (affects both C and C++ files)
-let g:cpp_member_highlight = 1
-
-" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
-" (affects both C and C++ files)
-let g:cpp_simple_highlight = 1
 
 
 
