@@ -143,6 +143,8 @@ call plug#begin('~/.config/nvim/plugged')
 " lsp
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" ctags
+  Plug 'majutsushi/tagbar'
 call plug#end()
 
 
@@ -154,6 +156,10 @@ augroup cpp
     au FileType c let b:auto_save = 1
 augroup END
 
+
+" ==== ctags ====
+let g:tagbar_width=80
+nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
 
 
 
