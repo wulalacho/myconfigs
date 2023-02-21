@@ -80,20 +80,21 @@ call plug#begin('~/.config/nvim/plugged')
 
 " ctags
   Plug 'majutsushi/tagbar'
+
+" indentLine
+  Plug 'Yggdroot/indentLine'
 call plug#end()
 
 
-" ==== 907th/vim-auto-save ====
-let g:auto_save = 0
-augroup cpp
-    au!
-    au FileType cpp let b:auto_save = 1
-    au FileType c let b:auto_save = 1
-augroup END
+" ==== indentLine ====
+let g:indent_guides_guide_size            = 1  " 指定对齐线的尺寸
+let g:indent_guides_start_level           = 2  " 从第二层开始可视化显示缩进
+
+
+
 
 
 " ==== ctags ====
-let g:tagbar_width=80
 nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
 
 
