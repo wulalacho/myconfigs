@@ -1,3 +1,181 @@
+
+
+" =====================
+" === plugins begin  ==
+" =====================
+call plug#begin('~/.config/nvim/plugged')
+
+" minimap
+  Plug 'wfxr/minimap.vim'
+
+" theme
+  Plug 'morhetz/gruvbox'
+
+" floating terminal
+  Plug 'voldikss/vim-floaterm'
+
+" add file icon
+  Plug 'ryanoasis/vim-devicons'
+
+" theme
+  Plug 'cateduo/vsdark.nvim'
+
+" file explorer
+  Plug 'preservim/nerdtree'
+
+" lsp
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" ctags
+  Plug 'majutsushi/tagbar'
+
+" indentLine
+  Plug 'Yggdroot/indentLine'
+call plug#end()
+
+
+" ==== minimap ====
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+
+
+
+
+
+" ==== indentLine ====
+let g:indent_guides_guide_size            = 1  " 指定对齐线的尺寸
+let g:indent_guides_start_level           = 2  " 从第二层开始可视化显示缩进
+
+
+
+
+
+" ==== ctags ====
+nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
+
+
+
+" ==== cateduo/vsdark.nvim ====
+set termguicolors
+let g:vsdark_style = "dark"
+colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
+
+
+" ==== floaterm ====
+map te :FloatermNew<CR>
+
+
+" ==== preservim/nerdtree ====
+
+" 快速打开NERDTree 视窗
+map <leader><leader> :NERDTreeToggle<CR>  
+" show the hidden file
+let NERDTreeShowHidden=1
+
+
+" ==== coc extensions ====
+set signcolumn=number
+" <TAB> to select candidate forward or
+" pump completion candidate
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+" <s-TAB> to select candidate backward
+inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.')-1
+  return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+
+" <CR> to comfirm selected candidate
+" only when there's selected complete item
+if exists('*complete_info')
+  inoremap <silent><expr> <CR> complete_info(['selected'])['selected'] != -1 ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if(index(['vim', 'help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+
+" Use `[g` and `]g` to navigate diagnostics
+" 使用快捷键跳转下一条错误信息
+" 使用[g和]g查找上一个或下一个代码报错
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+
+
+" GoTo code navigation.跳转函数定义
+" 或者是查看定义的函数在哪里被调用
+" 列出定义列表
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)    "转至类型定义
+nmap <silent> gi <Plug>(coc-implementation)     "待办事项清单
+nmap <silent> gr <Plug>(coc-references)         "列出参考列表
+nmap <LEADER>qf <Plug>(coc-fix-current)
+
+
+
+
+
+
+" ==== clipboard with os ====
+let g:clipboard = {
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+
+
+
+
+
+
+
+
+
 " =====================
 " === Enhance Editor ==
 " =====================
@@ -118,162 +296,5 @@ func SetTitle()
          endif
     endif
 endfunc
-
-
-
-" =====================
-" === plugins begin  ==
-" =====================
-call plug#begin('~/.config/nvim/plugged')
-
-" theme
-  Plug 'morhetz/gruvbox'
-
-" floating terminal
-  Plug 'voldikss/vim-floaterm'
-
-" add file icon
-  Plug 'ryanoasis/vim-devicons'
-
-" theme
-  Plug 'cateduo/vsdark.nvim'
-
-" file explorer
-  Plug 'preservim/nerdtree'
-
-" lsp
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" ctags
-  Plug 'majutsushi/tagbar'
-
-" indentLine
-  Plug 'Yggdroot/indentLine'
-call plug#end()
-
-
-" ==== indentLine ====
-let g:indent_guides_guide_size            = 1  " 指定对齐线的尺寸
-let g:indent_guides_start_level           = 2  " 从第二层开始可视化显示缩进
-
-
-
-
-
-" ==== ctags ====
-nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
-
-
-
-" ==== cateduo/vsdark.nvim ====
-set termguicolors
-colorscheme gruvbox
-
-
-
-" ==== floaterm ====
-map te :FloatermNew<CR>
-
-
-" ==== preservim/nerdtree ====
-
-" 快速打开NERDTree 视窗
-map <leader><leader> :NERDTreeToggle<CR>  
-" show the hidden file
-let NERDTreeShowHidden=1
-
-
-" ==== coc extensions ====
-set signcolumn=number
-" <TAB> to select candidate forward or
-" pump completion candidate
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-" <s-TAB> to select candidate backward
-inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.')-1
-  return !col || getline('.')[col - 1] =~# '\s'
-endfunction
-
-" <CR> to comfirm selected candidate
-" only when there's selected complete item
-if exists('*complete_info')
-  inoremap <silent><expr> <CR> complete_info(['selected'])['selected'] != -1 ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if(index(['vim', 'help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-
-" Formatting selected code
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-
-" Use `[g` and `]g` to navigate diagnostics
-" 使用快捷键跳转下一条错误信息
-" 使用[g和]g查找上一个或下一个代码报错
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-
-
-" GoTo code navigation.跳转函数定义
-" 或者是查看定义的函数在哪里被调用
-" 列出定义列表
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)    "转至类型定义
-nmap <silent> gi <Plug>(coc-implementation)     "待办事项清单
-nmap <silent> gr <Plug>(coc-references)         "列出参考列表
-nmap <LEADER>qf <Plug>(coc-fix-current)
-
-
-
-
-
-
-" ==== clipboard with os ====
-let g:clipboard = {
-                \   'name': 'WslClipboard',
-                \   'copy': {
-                \      '+': 'clip.exe',
-                \      '*': 'clip.exe',
-                \    },
-                \   'paste': {
-                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \   },
-                \   'cache_enabled': 0,
-                \ }
 
 
