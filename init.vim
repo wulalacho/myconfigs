@@ -8,6 +8,9 @@ call plug#begin('~/.config/nvim/plugged')
 " minimap
   Plug 'wfxr/minimap.vim'
 
+" risc-v asm support
+  Plug 'henry-hsieh/riscv-asm-vim'
+
 " theme
   Plug 'morhetz/gruvbox'
 
@@ -36,7 +39,6 @@ call plug#end()
 
 " ==== minimap ====
 let g:minimap_width = 10
-let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 
 
@@ -60,9 +62,9 @@ nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
 set termguicolors
 let g:vsdark_style = "dark"
 colorscheme gruvbox
+"
 hi Normal guibg=NONE ctermbg=NONE
-
-
+"
 " ==== floaterm ====
 map te :FloatermNew<CR>
 
@@ -182,7 +184,6 @@ let g:clipboard = {
 
 " 基础设置
 set number
-set relativenumber
 set expandtab
 set tabstop=4
 set shiftwidth=4
