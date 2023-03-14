@@ -5,6 +5,9 @@
 " =====================
 call plug#begin('~/.config/nvim/plugged')
 
+" auto pair
+  Plug 'jiangmiao/auto-pairs' 
+
 " minimap
   Plug 'wfxr/minimap.vim'
 
@@ -60,10 +63,10 @@ nnoremap <silent> <F4> :TagbarToggle<CR> " 将tagbar的开关按键设置为 F4
 
 " ==== cateduo/vsdark.nvim ====
 set termguicolors
-let g:vsdark_style = "dark"
-colorscheme gruvbox
+let g:vsdark_style = "light"
+colorscheme vsdark
 "
-hi Normal guibg=NONE ctermbg=NONE
+"hi Normal guibg=NONE ctermbg=NONE
 "
 " ==== floaterm ====
 map te :FloatermNew<CR>
@@ -195,9 +198,9 @@ set jumpoptions=stack
 set updatetime=200
 
 " 快捷输入标志位符
-imap <buffer> ( ()<ESC>F(li
-imap [ []<ESC>F[li
-imap <buffer> { {}<ESC>F{li
+"imap <buffer> ( ()<ESC>F(li
+"imap [ []<ESC>F[li
+"imap <buffer> { {}<ESC>F{li
 
 " 分屏操作
 map sl :set splitright<CR>:vsplit<CR>
