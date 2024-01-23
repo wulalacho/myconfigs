@@ -1,1 +1,2 @@
-My configs.
+# What
+My config. vimrc
