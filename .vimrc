@@ -1,7 +1,7 @@
 " =====================
 " === plugins begin  ==
 " =====================
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugs')
 
 " auto pair
   Plug 'jiangmiao/auto-pairs' 
@@ -12,8 +12,17 @@ call plug#begin('~/.config/nvim/plugged')
 " add file icon
   Plug 'ryanoasis/vim-devicons'
 
+" vim-code-dark
+  Plug 'jeffkreeftmeijer/vim-dim'
+
+" vim-plug
+  Plug 'fenetikm/falcon'
+
 " theme
   Plug 'cateduo/vsdark.nvim'
+
+  Plug 'loctvl842/monokai-pro.nvim'
+
 
 " file explorer
 "  Plug 'preservim/nerdtree'
@@ -38,15 +47,6 @@ let g:indent_guides_start_level           = 2  " 从第二层开始可视化显�
 
 
 
-" ==== cateduo/vsdark.nvim ====
-colorscheme default
-hi Normal ctermbg=NONE  guibg=NONE
-highlight SignColumn guibg=NONE
-hi StatusLine ctermbg=NONE cterm=NONE
-hi StatusLineNC  ctermbg=NONE
-set laststatus=2
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set termguicolors
 " ==== preservim/nerdtree ====
 
 " 快速打开NERDTree 视窗
@@ -272,4 +272,16 @@ map - 5k
 map = 5j
 
 let mapleader='\'
+syntax on
 
+
+
+" ==== cateduo/vsdark.nvim ====
+hi Normal ctermbg=NONE  guibg=NONE
+hi StatusLine ctermbg=NONE cterm=NONE
+hi StatusLineNC  ctermbg=NONE
+set laststatus=2
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+highlight Comment cterm=italic guifg=black
+highlight SignColumn ctermfg=NONE guibg=NONE
+set termguicolors
