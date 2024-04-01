@@ -1,72 +1,140 @@
+" Comments in Vimscript start with a `"`.
+
+" If you open this file in Vim, it'll be syntax highlighted for you.
+
+" Vim is based on Vi. Setting `nocompatible` switches from the default
+" Vi-compatibility mode and enables useful Vim functionality. This
+" configuration option turns out not to be necessary for the file named
+" '~/.vimrc', because Vim automatically enters nocompatible mode if that file
+" is present. But we're including it here just in case this config file is
+" loaded some other way (e.g. saved as `foo`, and then Vim started with
+" `vim -u foo`).
+set nocompatible
+
+" Turn on syntax highlighting.
+syntax on
+
+" Disable the default Vim startup message.
+"set shortmess+=I
+
+" Show line numbers.
+set number
+
+" This enables relative line numbering mode. With both number and
+" relativenumber enabled, the current line shows the true line number, while
+" all other lines (above and below) are numbered relative to the current line.
+" This is useful because you can tell, at a glance, what count is needed to
+" jump up or down to a particular line, by {count}k to go up or {count}j to go
+" down.
+set relativenumber
+
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
+
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
+
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+
+" Unbind some useless/annoying default key bindings.
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
+" Enable mouse support. You should avoid relying on this too much, but it can
+" sometimes be convenient.
+set mouse+=a
+
+" Try to prevent bad habits like using the arrow keys for movement. This is
+" not the only possible bad habit. For example, holding down the h/j/k/l keys
+" for movement, rather than using more efficient movement commands, is also a
+" bad habit. The former is enforceable through a .vimrc, while we don't know
+" how to prevent the latter.
+" Do this in normal mode...
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+" ...and in insert mode
+inoremap <Left>  <ESC>:echoe "Use h"<CR>
+inoremap <Right> <ESC>:echoe "Use l"<CR>
+inoremap <Up>    <ESC>:echoe "Use k"<CR>
+inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+
+" wild menu
+set wildmenu wildmode=full
+set wildchar=<TAB> wildcharm=<C-Z>
+
+" add simple keymap
+nnoremap <space>b :buffers<cr>:b<space>
+nnoremap <space>e :b#<cr>
+nnoremap <space>w :w<cr>
+inoremap jf <esc>
+cnoremap jf <c-c>
+
 " =====================
 " === plugins begin  ==
 " =====================
 call plug#begin('~/.vim/plugs')
 
 " auto pair
-  Plug 'jiangmiao/auto-pairs' 
+Plug 'jiangmiao/auto-pairs'
 
 " theme
-  Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " add file icon
-  Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
 " vim-code-dark
-  Plug 'jeffkreeftmeijer/vim-dim'
+Plug 'jeffkreeftmeijer/vim-dim'
 
 " vim-plug
-  Plug 'fenetikm/falcon'
+Plug 'fenetikm/falcon'
 
-" theme
-  Plug 'cateduo/vsdark.nvim'
-
-  Plug 'loctvl842/monokai-pro.nvim'
-
-
-" file explorer
-"  Plug 'preservim/nerdtree'
+" vim-code-dark
+Plug 'tomasiser/vim-code-dark'
 
 " lsp
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" indentLine
-  Plug 'Yggdroot/indentLine'
-  
-" If you have nodejs
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 call plug#end()
 
 
 
 
-" ==== indentLine ====
-let g:indent_guides_guide_size            = 1  " 指定对齐线的尺寸
-let g:indent_guides_start_level           = 2  " 从第二层开始可视化显示缩进
 
-
-
-
-" ==== preservim/nerdtree ====
-
-" 快速打开NERDTree 视窗
-" map <leader><leader> :NERDTreeToggle<CR>  
-" show the hidden file
-" let NERDTreeShowHidden=1
-
-
-" ==== coc extensions ====
+" https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.vim
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
 set encoding=utf-8
 " Some servers have issues with backup files, see #649
-" set nobackup
-" set nowritebackup
+set nobackup
+set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
-" set updatetime=300
+set updatetime=300
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
@@ -78,26 +146,26 @@ set signcolumn=yes
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+                        \ coc#pum#visible() ? coc#pum#next(1) :
+                        \ CheckBackspace() ? "\<Tab>" :
+                        \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+        inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+        inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -115,11 +183,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+        if CocAction('hasProvider', 'hover')
+                call CocActionAsync('doHover')
+        else
+                call feedkeys('K', 'in')
+        endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
@@ -133,11 +201,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s)
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        autocmd!
+        " Setup formatexpr specified filetype(s)
+        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+        " Update signature help on jump placeholder
+        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying code actions to the selected code block
@@ -173,12 +241,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+        inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+        vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges
@@ -200,12 +268,10 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " provide custom statusline: lightline.vim, vim-airline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-
 " Mappings for CoCList
 " Show all diagnostics
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
@@ -217,35 +283,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>" =====================
-" === Enhance Editor ==
-" =====================
-
-" 基础设置
-set wildmenu
-set timeout timeoutlen=1000 ttimeoutlen=0
-set number
-set expandtab
-set tabstop=4
-set shiftwidth=4
-" set softtabstop=4
-set ignorecase
-set smartcase
-" set notimeout
-"set jumpoptions=stack
-" set updatetime=200
-
-" 快捷输入标志位符
-"imap <buffer> ( ()<ESC>F(li
-"imap [ []<ESC>F[li
-imap <buffer> { {}<ESC>F{li
-
-
-" newtr
-let g:netrw_hide = 1
-let g:netrw_liststyle = 3
-let g:netrw_list_hide = '.*\.swp$'
-let g:netrw_localrmdir = 'rm -rf'
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 
@@ -272,16 +310,16 @@ map - 5k
 map = 5j
 
 let mapleader='\'
-syntax on
 
 
 
-" ==== cateduo/vsdark.nvim ====
-hi Normal ctermbg=NONE  guibg=NONE
-hi StatusLine ctermbg=NONE cterm=NONE
-hi StatusLineNC  ctermbg=NONE
-set laststatus=2
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" newtr
+let g:netrw_hide = 1
+let g:netrw_liststyle = 3
+let g:netrw_list_hide = '.*\.swp$'
+let g:netrw_localrmdir = 'rm -rf'
+colorscheme codedark
 highlight Comment cterm=italic guifg=black
-highlight SignColumn ctermfg=NONE guibg=NONE
-set termguicolors
+highlight SignColumn ctermbg=NONE guibg=NONE
+" hi Normal ctermbg=NONE  guibg=NONE
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
